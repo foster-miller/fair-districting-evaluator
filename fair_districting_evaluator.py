@@ -4,11 +4,9 @@
     wasted votes, efficiency gap percentage, and the favored political party of the year according
     to the state chosen by the user. 
     
-    Filename: miller_project4_fair districting_gerrymandering.py
+    Filename: fair_districting_evaluator.py
     Author: foster miller
     Date: 03/03/2024
-    Course: COMP 1352
-    Assignment: Project 4 - Fair districting, Gerrymandering, Wasted Votes and Efficiency Gap
     Collaborators: None
     Internet Source: NA
 """
@@ -141,12 +139,17 @@ def main():
     print('This program evaluates districting fairness for US House elections from 1976-2020.')
     # keep prompting user until user no longer wants information
     while not is_finished:
-        year = input('What election year would you like to evaluate? ')
-        while type(year) != int or int(year) not in year_list:    # loop to catch invalid years
+        try:
+            year = int(input('What election year would you like to evaluate? '))
+        except ValueError:
+            print(f"{year} is not a valid year.")
+            year = None
+        while year not in year_list:    # loop to catch invalid years
             print('Sorry, valid election years are even years from 1976-2020.')
-            year = input('What election year would you like to evaluate? ')
-        
-        int(year)
+            try:
+                year = int(input('What election year would you like to evaluate? '))
+            except ValueError:
+                year = None
 
         state = input('What state would you like to evaluate? ').lower()
         while state not in state_list:  # loop to catch invalid state names
